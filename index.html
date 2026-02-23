@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Global Elite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        
+        .loader-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--neon); width: 100%; animation: load 2s linear; z-index: 20000; }
+        @keyframes load { from { width: 0; } to { width: 100%; } }
+
+        #notif-box { position: fixed; top: 10px; left: 10px; z-index: 10000; width: 250px; }
+        .notif { background: rgba(20,20,20,0.95); border-left: 3px solid var(--neon); padding: 10px; border-radius: 8px; margin-bottom: 5px; font-size: 11px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 12px 20px; border-radius: 50px; font-weight: bold; font-size: 13px; z-index: 20000; display: none; box-shadow: 0 0 20px var(--neon); text-align: center; }
+
+        .cart-container { position: fixed; top: 20px; right: 20px; z-index: 10001; cursor: pointer; }
+        .cart-icon { background: var(--neon); color: black; padding: 12px; border-radius: 50%; box-shadow: 0 0 15px var(--neon); font-size: 20px; }
+        #cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 50%; border: 2px solid white; display: none; }
+
+        header { padding: 60px 20px 20px; text-align: center; }
+        h1 { font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 0; }
+        
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .card { background: #111; border-radius: 25px; padding: 25px; margin-bottom: 25px; border: 1px solid #222; text-align: center; position: relative; }
+        .precio { font-size: 30px; font-weight: 900; color: var(--neon); margin: 5px 0; }
+        .precio-usd { font-size: 15px; color: #888; margin-bottom: 15px; font-weight: bold; }
+        .btn-buy { background: var(--neon); color: black; border: none; width: 100%; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; }
+
+        /* SECCIÓN DE SEGURIDAD NUEVA */
+        .security-banner { background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .security-banner i { color: var(--neon); margin-right: 8px; }
+        .security-text { font-size: 12px; color: #aaa; line-height: 1.4; }
+
+        .support-section { text-align: center; padding: 25px; border: 1px dashed #333; border-radius: 25px; margin-top: 10px; }
+        .support-title { color: var(--neon); font-weight: bold; font-size: 13px; display: block; margin-bottom: 10px; }
+        .support-links a { color: #00ff88; text-decoration: none; font-size: 14px; font-weight: bold; }
+        
+        .footer-safe { text-align: center; margin-top: 30px; font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+    <div class="loader-bar"></div>
+    <div id="notif-box"></div>
+    <div id="toast">Añadido al carrito con éxito</div>
+    
+    <div class="cart-container" onclick="verCarrito()">
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div id="cart-count">0</div>
+    </div>
+
+    <header><h1>BENJA PANEL</h1></header>
+
+    <div class="container">
+        <div class="security-banner">
+            <div style="color:var(--neon); font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                <i class="fas fa-shield-check"></i> PÁGINA 100% SEGURA
+            </div>
+            <p class="security-text">Encriptación de extremo a extremo. Tus datos y pagos están protegidos por sistemas de seguridad avanzada.</p>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-instagram" style="font-size: 40px; color: #E1306C;"></i>
+            <h2>INSTAGRAM</h2>
+            <p style="color:#888;">3.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$2.500 ARS</div>
+            <div class="precio-usd">U$D 3.20 (PayPal)</div>
+            <button class="btn-buy" onclick="sumar('Instagram')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="font-size: 40px;"></i>
+            <h2>TIKTOK</h2>
+            <p style="color:#888;">25.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$10.000 ARS</div>
+            <div class="precio-usd">U$D 11.50 (PayPal)</div>
+            <button class="btn-buy" onclick="sumar('TikTok')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="support-section">
+            <span class="support-title">¿NECESITAS AYUDA?</span>
+            <div class="support-links">
+                <a href="https://wa.me/5493364546172?text=Hola Benja! Tengo una duda de seguridad." target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <span style="color:#444; margin:0 10px;">|</span>
+                <a href="mailto:elnobaxsimpre@gmail.com?subject=Consulta Benja Panel"><i class="far fa-envelope"></i> Email</a>
+            </div>
+        </div>
+
+        <div class="footer-safe">
+            <i class="fas fa-lock"></i> Conexión Segura SSL Activada
+        </div>
+    </div>
+
+    <div id="pago" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 11000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #0a0a0a; border-radius: 30px; padding: 30px; border: 1px solid #333; width: 100%; max-width: 350px; text-align: center;">
+            <h3 style="color:var(--neon);"><i class="fas fa-check-circle"></i> PAGO SEGURO</h3>
+            <p style="font-size: 12px; color: #888; margin-bottom: 20px;">Realiza el pago y envía el comprobante para activar tu pedido.</p>
+            
+            <div style="display: flex; align-items: center; padding: 15px; border-radius: 15px; margin-bottom: 12px; background: #151515; border: 1px solid #222; text-align: left;">
+                <img src="https://logotipous.com/wp-content/uploads/2021/11/Mercado-Pago-Logo.png" width="30" style="margin-right:15px;">
+                <div><small>Mercado Pago</small><br><b>ALIAS: dupe.benja2026</b></div>
+            </div>
+            
+            <div style="display: flex; align-items: center; padding: 15px; border-radius: 15px; margin-bottom: 12px; background: #151515; border: 1px solid #222; text-align: left;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" width="30" style="margin-right:15px;">
+                <div><small>PayPal</small><br><b>EMAIL: elnobaxsimpre@gmail.com</b></div>
+                                                                                     
