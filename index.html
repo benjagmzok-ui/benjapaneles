@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        .banner-top { background: linear-gradient(90deg, #ff0055, #7000ff); padding: 10px; font-weight: bold; }
+        .card { background: #121212; border: 1px solid #222; padding: 25px; border-radius: 20px; margin: 20px auto; max-width: 400px; }
+        .precio { font-size: 32px; font-weight: bold; color: var(--neon); }
+        .btn-buy { background: var(--neon); color: black; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
+        
+        /* Modal de Pago */
+        #pago { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        .box { background: #1a1a1a; width: 85%; max-width: 400px; padding: 30px; border-radius: 25px; border: 1px solid var(--neon); margin: auto; }
+        .metodo { background: #252525; padding: 10px; border-radius: 10px; margin-bottom: 10px; text-align: left; font-size: 14px; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 15px; display: block; border-radius: 10px; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="banner-top">🔥 OFERTA TERMINA EN: <span id="timer">05:00</span></div>
+
+    <h1>💎 BENJA PANEL 💎</h1>
+
+    <div class="card">
+        <i class="fab fa-instagram" style="font-size: 40px; color: #e1306c;"></i>
+        <h2>INSTAGRAM</h2>
+        <p>3.000 SEGUIDORES</p>
+        <p class="precio">$2.500 ARS</p>
+        <button class="btn-buy" onclick="abrirPago('3.000 Seguidores Instagram')">COMPRAR AHORA</button>
+    </div>
+
+    <div class="card">
+        <i class="fab fa-tiktok" style="font-size: 40px;"></i>
+        <h2>TIKTOK</h2>
+        <p>25.000 SEGUIDORES</p>
+        <p class="precio">$10.000 ARS</p>
+        <button class="btn-buy" onclick="abrirPago('25.000 Seguidores TikTok')">COMPRAR AHORA</button>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h2 style="color:var(--neon);">DATOS DE PAGO</h2>
+            <div class="metodo"><b>ALIAS MP:</b> dupe.benja2026</div>
+            <div class="metodo"><b>PAYPAL:</b> benjagmzok@gmail.com</div>
+            <a id="linkWA" href="#" class="btn-wa">ENVIAR COMPROBANTE</a>
+            <p onclick="cerrarPago()" style="margin-top:20px; color:gray; cursor:pointer;">[ CERRAR ]</p>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function abrirPago(producto) {
+            document.getElementById('pago').style.display = 'flex';
+            let texto = "Hola Benja! Quiero comprar: " + producto;
+            document.getElementById('linkWA').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(texto);
+        }
+
+        // Función para cerrar el modal
+        function cerrarPago() {
+            document.getElementById('pago').style.display = 'none';
+        }
+
+        // Contador Funcional
+        let tiempo = 300; 
+        const display = document.getElementById('timer');
+        
+        setInterval(function() {
+            let minutos = Math.floor(tiempo / 60);
+            let segundos = tiempo % 60;
+            segundos = segundos < 10 ? '0' + segundos : segundos;
+            display.innerHTML = "0" + minutos + ":" + segundos;
+            if (tiempo > 0) {
+                tiempo--;
+            } else {
+                tiempo = 300; // Se reinicia al llegar a cero
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
