@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Global Elite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        
+        /* Animación de entrada */
+        .loader-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--neon); width: 100%; animation: load 2s linear; z-index: 20000; }
+        @keyframes load { from { width: 0; } to { width: 100%; } }
+
+        /* Notificaciones */
+        #notif-box { position: fixed; top: 10px; left: 10px; z-index: 10000; width: 250px; }
+        .notif { background: rgba(20,20,20,0.95); border-left: 3px solid var(--neon); padding: 10px; border-radius: 8px; margin-bottom: 5px; font-size: 11px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Mensaje de Carrito */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 12px 20px; border-radius: 50px; font-weight: bold; font-size: 13px; z-index: 20000; display: none; box-shadow: 0 0 20px var(--neon); }
+
+        /* Carrito */
+        .cart-container { position: fixed; top: 20px; right: 20px; z-index: 10001; cursor: pointer; }
+        .cart-icon { background: var(--neon); color: black; padding: 12px; border-radius: 50%; box-shadow: 0 0 15px var(--neon); font-size: 20px; transition: 0.3s; }
+        .cart-icon:hover { transform: scale(1.1); }
+        #cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 50%; border: 2px solid white; display: none; }
+
+        header { padding: 60px 20px 20px; text-align: center; }
+        h1 { font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 0; }
+        
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .card { background: #111; border-radius: 25px; padding: 25px; margin-bottom: 25px; border: 1px solid #222; text-align: center; transition: 0.4s; }
+        .card:hover { border-color: var(--neon); box-shadow: 0 0 20px rgba(0,255,136,0.15); transform: translateY(-5px); }
+        
+        .precio { font-size: 30px; font-weight: 900; color: var(--neon); margin: 5px 0; }
+        .precio-usd { font-size: 16px; color: #777; margin-bottom: 15px; font-weight: bold; }
+        .btn-buy { background: var(--neon); color: black; border: none; width: 100%; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn-buy:active { transform: scale(0.95); }
+
+        /* Ventajas */
+        .features { display: flex; justify-content: space-around; margin: 30px 0; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .features div { text-align: center; }
+        .features i { display: block; font-size: 18px; color: var(--neon); margin-bottom: 5px; }
+
+        /* Modal de Pago */
+        #pago { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 11000; align-items: center; justify-content: center; padding: 20px; }
+        .box { background: #0a0a0a; border-radius: 30px; padding: 30px; border: 1px solid #333; width: 100%; max-width: 350px; text-align: center; }
+        .metodo { display: flex; align-items: center; padding: 15px; border-radius: 15px; margin-bottom: 12px; background: #151515; border: 1px solid #222; text-align: left; }
+        .metodo img { width: 30px; margin-right: 15px; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 18px; display: block; border-radius: 15px; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="loader-bar"></div>
+    <div id="notif-box"></div>
+    <div id="toast">Producto en el carrito para finalizar la compra</div>
+    
+    <div class="cart-container" onclick="verCarrito()">
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div id="cart-count">0</div>
+    </div>
+
+    <header><h1>BENJA PANEL</h1></header>
+
+    <div class="container">
+        
+        <div class="features">
+            <div><i class="fas fa-bolt"></i> Rápido</div>
+            <div><i class="fas fa-shield-alt"></i> Seguro</div>
+            <div><i class="fas fa-headset"></i> 24/7</div>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-instagram" style="font-size: 40px; color: #E1306C;"></i>
+            <h2>INSTAGRAM</h2>
+            <p style="color:#888;">3.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$2.500 ARS</div>
+            <div class="precio-usd">U$D 2.50 (PayPal)</div>
+            <button class="btn-buy" onclick="sumar('Instagram')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="font-size: 40px;"></i>
+            <h2>TIKTOK</h2>
+            <p style="color:#888;">25.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$10.000 ARS</div>
+            <div class="precio-usd">U$D 10.00 (PayPal)</div>
+            <button class="btn-buy" onclick="sumar('TikTok')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div style="text-align: center; padding: 20px; border: 1px dashed #222; border-radius: 20px;">
+            <span style="color:var(--neon); font-weight: bold; font-size: 12px;">¿PROBLEMAS? CONTACTAME</span><br>
+            <a href="https://wa.me/5493364546172" style="color:#25d366; text-decoration:none; font-size:12px;">WhatsApp</a> | 
+            <a href="mailto:benjagmzok@gmail.com" style="color:#888; text-decoration:none; font-size:12px;">Email</a>
+        </div>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h3>FINALIZAR COMPRA</h3>
+            <p style="color:var(--neon); font-size: 13px;">¡Gracias por tu compra!</p>
+            <div class="metodo">
+                <img src="https://logotipous.com/wp-content/uploads/2021/11/Mercado-Pago-Logo.png">
+                <div><small>Mercado Pago</small><br><b>ALIAS: dupe.benja2026</b></div>
+            </div>
+            <div class="metodo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                <div><small>PayPal</small><br><b>EMAIL: benjagmzok@gmail.com</b></div>
+            </div>
+            <a id="waLink" href="#" class="btn-wa">ENVIAR COMPROBANTE</a>
+            <p onclick="document.getElementById('pago').style.display='none'" style="margin-top:20px; cursor:pointer; color:#666;">[ CERRAR ]</p>
+        </div>
+    </div>
+
+    <script>
+        let items = 0;
+        let lista = [];
+
+        function sumar(p) {
+            items++;
+            lista.push(p);
+            const count = document.getElementById('cart-count');
+            count.innerText = items;
+            count.style.display = 'block';
+            
+            const t = document.getElementById('toast');
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function verCarrito() {
+            if(items > 0) {
+                document.getElementById('pago').style.display = 'flex';
+                let txt = "Hola Benja! Compré " + items + " productos: " + lista.join(", ") + ". Ya pagué.";
+                document.getElementById('waLink').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(txt);
+            } else {
+                const t = document.getElementById('toast');
+                t.innerText = "¡Añade algo primero!";
+                t.style.display = 'block';
+                setTimeout(() => t.style.display = 'none', 2000);
+            }
+        }
+
+        const nomes = ['@agus_v', '@luli.ok', '@mateo.ig', '@sofi_26', '@juan.perez'];
+        setInterval(() => {
+            const n = document.createElement('div'); n.className = 'notif';
+            n.innerHTML = `<b>${nomes[Math.floor(Math.random()*nomes.length)]}</b> compró seguidores.`;
+            document.getElementById('notif-box').appendChild(n);
+            setTimeout(() => n.remove(), 4000);
+        }, 8000);
+    </script>
+</body>
+  </html>
+  
