@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Global Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; --mp: #009ee3; --pp: #0070ba; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        .banner-top { background: #ff0055; padding: 10px; font-weight: bold; font-size: 13px; }
+        header { padding: 30px; }
+        h1 { color: var(--neon); font-size: 2.2rem; text-shadow: 0 0 10px var(--neon); margin: 0; }
+        .container { padding: 15px; max-width: 450px; margin: auto; }
+        .card { background: #111; border: 1px solid #222; padding: 25px; border-radius: 25px; margin-bottom: 20px; transition: 0.3s; }
+        .card:hover { border-color: var(--neon); transform: scale(1.02); }
+        .precio { font-size: 28px; font-weight: bold; color: var(--neon); margin: 10px 0; }
+        .btn-buy { background: var(--neon); color: black; border: none; padding: 16px; border-radius: 15px; font-weight: bold; width: 100%; cursor: pointer; font-size: 16px; }
+        
+        /* Modal de Pago Global */
+        #pago { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; flex-direction: column; justify-content: center; align-items: center; }
+        .box { background: #1a1a1a; width: 90%; max-width: 400px; padding: 25px; border-radius: 30px; border: 1px solid #333; }
+        .metodo { padding: 15px; border-radius: 20px; margin-bottom: 12px; text-align: left; display: flex; align-items: center; border: 1px solid #333; }
+        .mp { background: rgba(0,158,227,0.1); border-color: var(--mp); }
+        .pp { background: rgba(0,112,186,0.1); border-color: var(--pp); }
+        .metodo i { font-size: 22px; margin-right: 15px; }
+        .metodo-info b { display: block; font-size: 16px; color: #fff; }
+        .metodo-info small { color: #aaa; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 18px; display: block; border-radius: 15px; margin-top: 20px; font-weight: bold; }
+        .footer-info { font-size: 12px; color: #444; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="banner-top">🌍 ENVÍOS INTERNACIONALES ACTIVOS - <span id="timer">05:00</span></div>
+
+    <header>
+        <h1>BENJA PANEL</h1>
+        <p style="color:#666; margin-top:5px;">WORLDWIDE SOCIAL SERVICES</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <i class="fab fa-instagram" style="font-size: 45px; color: #e1306c;"></i>
+            <h3>INSTAGRAM GLOBAL</h3>
+            <p>3.000 SEGUIDORES REALES</p>
+            <div class="precio">$2.500 ARS / $2.50 USD</div>
+            <button class="btn-buy" onclick="abrirPago('3.000 Seguidores Instagram')">COMPRAR / BUY NOW</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="font-size: 45px; color: white;"></i>
+            <h3>TIKTOK GLOBAL</h3>
+            <p>25.000 SEGUIDORES REALES</p>
+            <div class="precio">$10.000 ARS / $10.00 USD</div>
+            <button class="btn-buy" onclick="abrirPago('25.000 Seguidores TikTok')">COMPRAR / BUY NOW</button>
+        </div>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h2 style="margin-bottom:15px; font-size: 20px;">SELECCIONÁ TU MONEDA</h2>
+            
+            <div class="metodo mp">
+                <i class="fa-solid fa-wallet" style="color:var(--mp);"></i>
+                <div class="metodo-info">
+                    <small>Argentina (Pesos)</small>
+                    <b>ALIAS: dupe.benja2026</b>
+                </div>
+            </div>
+
+            <div class="metodo pp">
+                <i class="fab fa-paypal" style="color:var(--pp);"></i>
+                <div class="metodo-info">
+                    <small>International Payments (USD)</small>
+                    <b>PAYPAL: benjagmzok@gmail.com</b>
+                </div>
+            </div>
+
+            <a id="linkWA" href="#" class="btn-wa"><i class="fab fa-whatsapp"></i> ENVIAR COMPROBANTE</a>
+            <p onclick="cerrarPago()" style="margin-top:20px; color:#555; cursor:pointer; font-weight:bold;">VOLVER / BACK</p>
+            <div class="footer-info">Pagos protegidos por PayPal Business</div>
+        </div>
+    </div>
+
+    <script>
+        function abrirPago(prod) {
+            document.getElementById('pago').style.display = 'flex';
+            let msg = "Hola Benja! Quiero comprar el pack: " + prod;
+            document.getElementById('linkWA').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(msg);
+        }
+        function cerrarPago() { document.getElementById('pago').style.display = 'none'; }
+
+        let t = 300;
+        setInterval(() => {
+            let m = Math.floor(t / 60); let s = t % 60;
+            document.getElementById('timer').innerText = `0${m}:${s < 10 ? '0'+s : s}`;
+            if(t > 0) t--; else t = 300;
+        }, 1000);
+    </script>
+</body>
+</html>
