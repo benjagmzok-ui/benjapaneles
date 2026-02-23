@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Elite Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* Notificaciones */
+        #notif-box { position: fixed; top: 10px; left: 10px; z-index: 10000; width: 280px; }
+        .notif { background: rgba(10,10,10,0.95); border-left: 3px solid var(--neon); padding: 10px; border-radius: 8px; margin-bottom: 5px; font-size: 11px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Carrito */
+        .cart-icon { position: fixed; top: 20px; right: 20px; background: var(--neon); color: black; padding: 12px; border-radius: 50%; z-index: 10001; box-shadow: 0 0 15px var(--neon); font-size: 20px; cursor: pointer; }
+
+        .header { padding: 50px 20px 20px; text-align: center; }
+        h1 { font-size: 2.4rem; margin: 0; text-shadow: 0 0 20px var(--neon); }
+        .container { max-width: 420px; margin: auto; padding: 20px; }
+        .card { background: #111; border-radius: 25px; padding: 25px; margin-bottom: 25px; border: 1px solid #222; text-align: center; }
+        .precio { font-size: 35px; font-weight: 900; color: var(--neon); margin: 10px 0; }
+        .btn-buy { background: var(--neon); color: black; border: none; width: 100%; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 16px; cursor: pointer; }
+
+        /* Modal de Pago */
+        #pago { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 11000; align-items: center; justify-content: center; }
+        .box { background: #0a0a0a; border-radius: 30px; padding: 30px; border: 1px solid #333; width: 85%; max-width: 380px; text-align: center; }
+        .metodo { display: flex; align-items: center; padding: 15px; border-radius: 15px; margin-bottom: 12px; background: #151515; border: 1px solid #222; text-align: left; }
+        .metodo img { width: 30px; margin-right: 15px; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 18px; display: block; border-radius: 15px; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="notif-box"></div>
+    <div class="cart-icon" onclick="abrir('Carrito de Compras')"><i class="fas fa-shopping-cart"></i></div>
+
+    <div class="header">
+        <h1>BENJA PANEL</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <i class="fab fa-instagram" style="font-size: 40px; color: #E1306C;"></i>
+            <h2>INSTAGRAM</h2>
+            <p>3.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$2.500 ARS</div>
+            <button class="btn-buy" onclick="abrir('Instagram')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="font-size: 40px;"></i>
+            <h2>TIKTOK</h2>
+            <p>25.000 SEGUIDORES PREMIUM</p>
+            <div class="precio">$10.000 ARS</div>
+            <button class="btn-buy" onclick="abrir('TikTok')">AÑADIR AL CARRITO</button>
+        </div>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h2 style="font-size:18px; margin-bottom:20px;">DETALLES DEL PAGO</h2>
+            <div class="metodo">
+                <img src="https://logotipous.com/wp-content/uploads/2021/11/Mercado-Pago-Logo.png">
+                <div><small style="color:#009ee3;">Mercado Pago</small><br><b>ALIAS: <span style="color:var(--neon);">dupe.benja2026</span></b></div>
+            </div>
+            <div class="metodo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                <div><small style="color:#003087;">Pago Extranjero</small><br><b>EMAIL: <span style="color:var(--neon);">benjagmzok@gmail.com</span></b></div>
+            </div>
+            <a id="waLink" href="#" class="btn-wa">NOTIFICAR PAGO</a>
+            <p onclick="cerrar()" style="margin-top:20px; color:#555; cursor:pointer; font-weight:bold;">[ VOLVER ]</p>
+        </div>
+    </div>
+
+    <script>
+        // Usuarios falsos rápidos
+        const pre = ['sofi', 'mati', 'agus', 'luli', 'tiago', 'flor', 'nacho', 'valen', 'mili', 'santi', 'cami', 'joaco'];
+        const mid = ['_', '.', '', 'ok', 'vazquez', 'gonzalez', 'perez'];
+        setInterval(() => {
+            const nombre = "@" + pre[Math.floor(Math.random()*pre.length)] + mid[Math.floor(Math.random()*mid.length)];
+            const box = document.getElementById('notif-box');
+            const n = document.createElement('div');
+            n.className = 'notif';
+            n.innerHTML = `<i class="fas fa-shopping-bag" style="color:var(--neon); margin-right:8px;"></i> <b>${nombre}</b> acaba de comprar.`;
+            box.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }, 4000);
+
+        // FUNCIONES DE CLICK ARREGLADAS
+        function abrir(producto) {
+            document.getElementById('pago').style.display = 'flex';
+            let mensaje = "Hola Benja! Quiero finalizar la compra de: " + producto + ". Ya realicé el pago.";
+            document.getElementById('waLink').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(mensaje);
+        }
+
+        function cerrar() {
+            document.getElementById('pago').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
