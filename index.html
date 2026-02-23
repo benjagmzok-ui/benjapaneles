@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Elite Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; --card: #0f0f0f; }
+        body { background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; text-align: center; margin: 0; padding: 20px; overflow-x: hidden; }
+        
+        #toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.95); color: var(--neon); padding: 25px 45px; border-radius: 20px; font-weight: 900; z-index: 20000; display: none; border: 2px solid var(--neon); box-shadow: 0 0 50px var(--neon); text-transform: uppercase; letter-spacing: 2px; }
+
+        .cart-container { position: fixed; top: 20px; right: 20px; z-index: 10001; cursor: pointer; }
+        .cart-icon { background: var(--neon); color: black; padding: 15px; border-radius: 50%; font-size: 22px; box-shadow: 0 0 20px var(--neon); }
+        #cart-count { position: absolute; top: -5px; right: -5px; background: #ff0055; color: white; font-size: 12px; padding: 3px 8px; border-radius: 50%; border: 2px solid white; display: none; font-weight: bold; }
+
+        h1 { font-size: 2.2rem; color: var(--neon); text-shadow: 0 0 15px var(--neon); margin-top: 60px; letter-spacing: 3px; }
+        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 30px; margin-bottom: 25px; transition: 0.3s; }
+        .precio { font-size: 32px; font-weight: 900; color: var(--neon); margin: 10px 0; }
+        
+        button { background: var(--neon); color: black; border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; width: 100%; font-size: 14px; text-transform: uppercase; }
+
+        #pago { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 11000; align-items: center; justify-content: center; padding: 20px; }
+        .box { background: #080808; border-radius: 35px; padding: 30px; border: 2px solid var(--neon); width: 100%; max-width: 380px; }
+        .metodo { display: flex; align-items: center; background: #111; padding: 15px; border-radius: 20px; margin-bottom: 12px; border: 1px solid #222; text-align: left; }
+        .metodo img { width: 35px; height: 35px; margin-right: 15px; object-fit: contain; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 20px; display: block; border-radius: 18px; font-weight: bold; margin-top: 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast">PRODUCTO AGREGADO</div>
+
+    <div class="cart-container" onclick="verCarrito()">
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div id="cart-count">0</div>
+    </div>
+
+    <h1>BENJA PANEL</h1>
+    <p style="color: #555; font-size: 12px; letter-spacing: 2px; font-weight: bold;">SERVICIOS DIGITALES 2026</p>
+
+    <div style="max-width: 420px; margin: auto;">
+        
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Roblox_Logo_2022.svg" style="width: 50px; margin-bottom: 10px;">
+            <h2>1.000 ROBUX</h2>
+            <div class="precio">$7.000 ARS</div>
+            <button onclick="sumar('1000 Robux')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-instagram" style="font-size: 45px; color: #E1306C;"></i>
+            <h2>INSTAGRAM</h2>
+            <div class="precio">$2.500 ARS</div>
+            <button onclick="sumar('Instagram')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="font-size: 45px;"></i>
+            <h2>TIKTOK</h2>
+            <div class="precio">$10.000 ARS</div>
+            <button onclick="sumar('TikTok')">AÑADIR AL CARRITO</button>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="https://wa.me/5493364546172" style="color:var(--neon); text-decoration:none; font-size: 14px;">
+                <i class="fab fa-whatsapp"></i> SOPORTE DIRECTO
+            </a>
+        </div>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h3 style="color:var(--neon); margin-bottom: 25px;">CHECKOUT SEGURO</h3>
+            <div class="metodo">
+                <img src="https://logotipous.com/wp-content/uploads/2021/11/Mercado-Pago-Logo.png">
+                <div><small style="color:var(--neon)">MERCADO PAGO</small><br><b>ALIAS: dupe.benja2026</b></div>
+            </div>
+            <div class="metodo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                <div><small style="color:var(--neon)">PAYPAL (INTL)</small><br><b>EMAIL: benjagmzok@gmail.com</b></div>
+            </div>
+            <a id="waLink" href="#" class="btn-wa">ENVIAR COMPROBANTE</a>
+            <p onclick="document.getElementById('pago').style.display='none'" style="margin-top:25px; cursor:pointer; color:#444; font-size: 12px;">[ CERRAR VENTANA ]</p>
+        </div>
+    </div>
+
+    <script>
+        let items = 0; let lista = [];
+        function sumar(producto) {
+            items++; lista.push(producto);
+            const countLabel = document.getElementById('cart-count');
+            countLabel.innerText = items;
+            countLabel.style.display = 'block';
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 1500);
+        }
+        function verCarrito() {
+            if(items > 0) {
+                document.getElementById('pago').style.display = 'flex';
+                let msg = "Hola Benja! Compré estos productos: " + lista.join(", ");
+                document.getElementById('waLink').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(msg);
+            } else { alert("Tu carrito está vacío."); }
+        }
+    </script>
+</body>
+  </html>
+  
