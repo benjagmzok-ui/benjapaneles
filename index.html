@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel | Global Elite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        .loader-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--neon); width: 100%; animation: load 2s linear; z-index: 20000; }
+        #notif-box { position: fixed; top: 10px; left: 10px; z-index: 10000; width: 250px; }
+        .notif { background: rgba(20,20,20,0.95); border-left: 3px solid var(--neon); padding: 10px; border-radius: 8px; margin-bottom: 5px; font-size: 11px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 12px 20px; border-radius: 50px; font-weight: bold; font-size: 13px; z-index: 20000; display: none; box-shadow: 0 0 20px var(--neon); }
+        .cart-container { position: fixed; top: 20px; right: 20px; z-index: 10001; cursor: pointer; }
+        .cart-icon { background: var(--neon); color: black; padding: 12px; border-radius: 50%; box-shadow: 0 0 15px var(--neon); font-size: 20px; }
+        #cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 50%; border: 2px solid white; display: none; }
+        header { padding: 60px 20px 20px; text-align: center; }
+        h1 { font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 0; }
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .card { background: #111; border-radius: 25px; padding: 25px; margin-bottom: 25px; border: 1px solid #222; text-align: center; }
+        .precio { font-size: 30px; font-weight: 900; color: var(--neon); margin: 5px 0; }
+        .btn-buy { background: var(--neon); color: black; border: none; width: 100%; padding: 18px; border-radius: 15px; font-weight: 900; font-size: 14px; cursor: pointer; }
+        #pago { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 11000; align-items: center; justify-content: center; padding: 20px; }
+        .box { background: #0a0a0a; border-radius: 30px; padding: 30px; border: 1px solid #333; width: 100%; max-width: 350px; text-align: center; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 18px; display: block; border-radius: 15px;
+      
