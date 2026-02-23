@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benja Panel Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; margin: 0; overflow-x: hidden; }
+        h1 { color: #00ff88; text-shadow: 0 0 10px rgba(0,255,136,0.5); margin-top: 50px; }
+        
+        /* Notificaciones Falsas */
+        #notif-box { position: fixed; top: 10px; left: 10px; z-index: 10000; width: 220px; }
+        .notif { background: rgba(20,20,20,0.9); border-left: 3px solid #00ff88; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 11px; animation: slide 0.3s ease; text-align: left; }
+        @keyframes slide { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Carrito Pro */
+        .cart-container { position: fixed; top: 20px; right: 20px; z-index: 10001; cursor: pointer; }
+        .cart-icon { background: #00ff88; color: black; padding: 12px; border-radius: 50%; font-size: 20px; box-shadow: 0 0 15px #00ff88; }
+        #cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 11px; padding: 2px 6px; border-radius: 50%; border: 2px solid white; display: none; }
+
+        .card { background: #161616; border: 1px solid #333; padding: 25px; border-radius: 25px; margin-bottom: 25px; transition: 0.3s; }
+        .precio { font-size: 28px; font-weight: bold; color: #00ff88; margin: 15px 0; }
+        button { background: #00ff88; color: black; border: none; padding: 18px; border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; font-size: 14px; text-transform: uppercase; }
+
+        #pago { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 11000; align-items: center; justify-content: center; }
+        .box { background: #1a1a1a; width: 85%; max-width: 380px; padding: 30px; border-radius: 30px; border: 1px solid #00ff88; }
+        .metodo { background: #222; padding: 15px; border-radius: 15px; margin-bottom: 12px; text-align: left; border: 1px solid #333; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 18px; display: block; border-radius: 15px; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="notif-box"></div>
+
+    <div class="cart-container" onclick="verCarrito()">
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div id="cart-count">0</div>
+    </div>
+
+    <h1>💎 BENJA PANEL 💎</h1>
+    <p style="color: #888;">Servicios Premium Garantizados</p>
+
+    <div class="card">
+        <i class="fab fa-instagram" style="font-size: 40px; color: #e1306c;"></i>
+        <h2>INSTAGRAM</h2>
+        <p>3.000 SEGUIDORES PREMIUM</p>
+        <div class="precio">$2.500 ARS</div>
+        <p style="color:#666; font-weight:bold;">U$D 3.20 (PayPal)</p>
+        <button onclick="sumar('Instagram')">AÑADIR AL CARRITO</button>
+    </div>
+
+    <div class="card">
+        <i class="fab fa-tiktok" style="font-size: 40px;"></i>
+        <h2>TIKTOK</h2>
+        <p>25.000 SEGUIDORES PREMIUM</p>
+        <div class="precio">$10.000 ARS</div>
+        <p style="color:#666; font-weight:bold;">U$D 11.50 (PayPal)</p>
+        <button onclick="sumar('TikTok')">AÑADIR AL CARRITO</button>
+    </div>
+
+    <div id="pago">
+        <div class="box">
+            <h2 style="color:#00ff88; margin-top:0;">🔒 PAGO SEGURO</h2>
+            <div class="metodo">
+                <small style="color:#888;">Mercado Pago (Argentina)</small><br>
+                <b>ALIAS: dupe.benja2026</b>
+            </div>
+            <div class="metodo">
+                <small style="color:#888;">PayPal (Internacional)</small><br>
+                <b>EMAIL: benjagmzok@gmail.com</b>
+            </div>
+            <a id="waLink" href="#" class="btn-wa">ENVIAR COMPROBANTE</a>
+            <p onclick="document.getElementById('pago').style.display='none'" style="margin-top:20px; color:#555; cursor:pointer;">Cerrar</p>
+        </div>
+    </div>
+
+    <script>
+        let items = 0; let lista = [];
+        function sumar(p) {
+            items++; lista.push(p);
+            document.getElementById('cart-count').innerText = items;
+            document.getElementById('cart-count').style.display = 'block';
+        }
+        function verCarrito() {
+            if(items > 0) {
+                document.getElementById('pago').style.display = 'flex';
+                let msg = "Hola Benja! Realicé el pago de: " + lista.join(", ");
+                document.getElementById('waLink').href = "https://wa.me/5493364546172?text=" + encodeURIComponent(msg);
+            } else { alert("Agregá productos al carrito."); }
+        }
+
+        // Notificaciones de compra falsas
+        const users = ['@mateo_ok', '@sofia.v', '@agustina_shop', '@tomi.dupe', '@lucas_ig'];
+        setInterval(() => {
+            const n = document.createElement('div');
+            n.className = 'notif';
+            n.innerHTML = `<b>${users[Math.floor(Math.random()*users.length)]}</b> acaba de comprar un pack.`;
+            document.getElementById('notif-box').appendChild(n);
+            setTimeout(() => n.remove(), 4000);
+        }, 10000);
+    </script>
+</body>
+  </html>
+  
