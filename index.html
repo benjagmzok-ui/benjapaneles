@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENJA PANELES | Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; --card: #111; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; text-align: center; margin: 0; padding: 20px; }
+        
+        .header-neon { font-family: 'Orbitron', sans-serif; color: var(--neon); font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 20px 0 5px; text-transform: uppercase; }
+        .sub-neon { color: #555; letter-spacing: 3px; font-size: 11px; margin-bottom: 30px; font-weight: bold; }
+
+        .grid { display: grid; gap: 20px; max-width: 400px; margin: auto; }
+        .card { 
+            background: var(--card); border-radius: 25px; padding: 25px; border: 1px solid #222; 
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--neon); box-shadow: 0 0 15px rgba(0, 255, 136, 0.1); }
+        .card i { font-size: 45px; margin-bottom: 15px; display: block; }
+        .price { font-size: 32px; font-weight: 900; color: var(--neon); margin: 10px 0; }
+        
+        .btn-comprar { background: var(--neon); color: black; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; width: 100%; font-size: 14px; text-transform: uppercase; }
+
+        /* ESTILO DEL CONTADOR EN VIVO */
+        .live-counter {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 30px 0;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--neon);
+            letter-spacing: 1px;
+        }
+        .pulse-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--neon);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--neon);
+            animation: pulse-animation 1.5s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        /* MODAL */
+        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(10px); }
+        .modal-box { background: #111; border-radius: 30px; padding: 25px; border: 1px solid #333; width: 90%; max-width: 380px; max-height: 90vh; overflow-y: auto; }
+        .input-user { background: #000; border: 1px solid var(--neon); color: white; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; text-align: center; font-weight: bold; }
+        .pay-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #333; }
+        .pay-title { color: var(--neon); font-size: 0.8rem; font-weight: 900; margin-bottom: 15px; display: block; text-transform: uppercase; }
+        .alias-box { background: #1a1a1a; padding: 15px; border-radius: 15px; border: 1px solid var(--neon); text-align: left; }
+        .alias-value { font-size: 1.2rem; color: white; font-weight: 900; display: block; }
+        .btn-ws { background: #25d366; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: 15px; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1 class="header-neon">BENJA PANELES</h1>
+    <p class="sub-neon">SISTEMA AUTOMATIZADO 2026</p>
+
+    <div class="live-counter">
+        <div class="pulse-dot"></div>
+        16 PEDIDOS PROCESADOS HOY
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <i class="fab fa-instagram" style="color: #E1306C;"></i>
+            <div style="color:#888; font-weight:bold;">10.000 SEGUIDORES</div>
+            <div class="price">$20.000 ARS</div>
+            <button class="btn-comprar" onclick="abrirPagar(20.00, '10k Instagram')">COMPRAR AHORA</button>
+        </div>
+        <div class="card">
+            <i class="fab fa-tiktok" style="color: #fff;"></i>
+            <div style="color:#888; font-weight:bold;">25.000 SEGUIDORES</div>
+            <div class="price">$30.000 ARS</div>
+            <button class="btn-comprar" onclick="abrirPagar(30.00, '25k TikTok')">COMPRAR AHORA</button>
+        </div>
+    </div>
+
+    <div id="modal">
+        <div class="modal-box">
+            <h3 style="color: var(--neon); font-size: 14px; margin-top: 0;">PASO 1: TU USUARIO</h3>
+            <input type="text" id="username" class="input-user" placeholder="@usuario_aquí">
+            <div class="pay-section">
+                <span class="pay-title">🇦🇷 PAGO ARGENTINA</span>
+                <div class="alias-box">
+                    <span style="font-size: 10px; color: #888;">ALIAS MERCADO PAGO:</span>
+                    <span class="alias-value">dupe.benja2026</span>
+                </div>
+                <a id="link-ws" href="#" class="btn-ws" onclick="validarWap(event)">
+                    <i class="fab fa-whatsapp"></i> ENVIAR COMPROBANTE
+                </a>
+            </div>
+            <div class="pay-section" style="border:none;">
+                <span class="pay-title">🌎 PAGO EXTRANJEROS</span>
+                <div id="paypal-button-container"></div>
+            </div>
+            <p onclick="cerrar()" style="cursor:pointer; color:#ff0055; font-weight:bold; margin-top:10px;">[ VOLVER ]</p>
+        </div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Af-LRWz3YD3gVMoyCram_GHYl4AFw_436KZzNrrZusl7J3YOYYYTOyVeTrTzqJwR5GgziptNQUT7nd5_&currency=USD"></script>
+
+    <script>
+        let servicioActual = "";
+        function abrirPagar(precio, nombre) {
+            servicioActual = nombre;
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('paypal-button-container').innerHTML = '';
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'rect' },
+                createOrder: (data, actions) => {
+                    const user = document.getElementById('username').value;
+                    if(!user){ alert('Ingresá el @usuario'); return; }
+                    return actions.order.create({ purchase_units: [{ amount: { value: precio.toFixed(2) }, description: nombre + " para " + user }] });
+                },
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(() => {
+                        window.location.href = "https://wa.me/5493364546172?text=Pago%20Listo%20por%20" + nombre;
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+        function validarWap(e) {
+            const user = document.getElementById('username').value;
+            if(!user) { e.preventDefault(); alert('Ingresá el @usuario'); }
+            else { document.getElementById('link-ws').href = "https://wa.me/5493364546172?text=Hola%20Benja!%20Pago%20por%20" + servicioActual + "%20para%20" + user; }
+        }
+        function cerrar() { document.getElementById('modal').style.display = 'none'; }
+    </script>
+</body>
+  </html>
+  
