@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRUEBA PAGO | Benja Paneles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; --card: #0f0f0f; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .header-neon { font-family: 'Orbitron', sans-serif; color: var(--neon); font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 20px 0 5px; text-transform: uppercase; }
+        .sub-neon { color: #555; letter-spacing: 3px; font-size: 11px; margin-bottom: 30px; font-weight: bold; }
+        .grid { display: grid; gap: 20px; max-width: 400px; margin: auto; }
+        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 25px; }
+        .card i { font-size: 45px; margin-bottom: 15px; display: block; }
+        .price { font-size: 32px; font-weight: 900; color: var(--neon); margin: 10px 0; }
+        .btn-comprar { background: var(--neon); color: black; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; width: 100%; font-size: 14px; text-transform: uppercase; }
+        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(15px); }
+        .modal-box { background: #111; border-radius: 30px; padding: 30px; border: 1px solid #333; width: 100%; max-width: 350px; }
+        #notification-box { position: fixed; bottom: 20px; left: 20px; z-index: 3000; pointer-events: none; }
+        .notif { background: rgba(20,20,20,0.9); border: 1px solid var(--neon); padding: 12px 20px; border-radius: 15px; margin-top: 10px; font-size: 13px; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { transform: translateX(-120%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="notification-box"></div>
+
+    <h1 class="header-neon">MODO PRUEBA</h1>
+    <p class="sub-neon">TEST DE PAGO AUTOMÁTICO</p>
+
+    <div class="grid">
+        <div class="card">
+            <i class="fab fa-instagram" style="color: #E1306C;"></i>
+            <div style="color:#888; font-weight:bold;">TEST INSTAGRAM</div>
+            <div class="price">$0,20 USD</div>
+            <button class="btn-comprar" onclick="abrirPagar(0.20)">PROBAR PAGO</button>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-tiktok" style="color: #fff;"></i>
+            <div style="color:#888; font-weight:bold;">TEST TIKTOK</div>
+            <div class="price">$0,20 USD</div>
+            <button class="btn-comprar" onclick="abrirPagar(0.20)">PROBAR PAGO</button>
+        </div>
+    </div>
+
+    <div id="modal">
+        <div class="modal-box">
+            <h2 style="color: var(--neon); margin-bottom:20px;">PAGO DE PRUEBA</h2>
+            <div id="paypal-button-container"></div>
+            <p onclick="cerrar()" style="cursor:pointer; color:#ff0055; margin-top:20px; font-weight:bold;">[ CANCELAR ]</p>
+        </div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Af-LRWz3YD3gVMoyCram_GHYl4AFw_436KZzNrrZusl7J3YOYYYTOyVeTrTzqJwR5GgziptNQUT7nd5_&currency=USD"></script>
+
+    <script>
+        let monto = 0;
+
+        function abrirPagar(p) {
+            monto = p;
+            document.getElementById('modal').style.display = 'flex';
+            renderPaypal();
+        }
+
+        function cerrar() { document.getElementById('modal').style.display = 'none'; }
+
+        function renderPaypal() {
+            document.getElementById('paypal-button-container').innerHTML = '';
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'rect' },
+                createOrder: (data, actions) => {
+                    return actions.order.create({ purchase_units: [{ amount: { value: monto.toFixed(2) } }] });
+                },
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(details => {
+                        alert('¡Pago de prueba exitoso, ' + details.payer.name.given_name + '!');
+                        window.location.href = "https://wa.me/5493364546172?text=Test%20de%20pago%200.20%20exitoso";
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+
+        setInterval(() => {
+            const box = document.getElementById('notification-box');
+            const n = document.createElement('div');
+            n.className = 'notif';
+            n.innerHTML = `✅ Sistema de pago en línea activo`;
+            box.appendChild(n);
+            setTimeout(() => n.remove(), 4000);
+        }, 10000);
+    </script>
+</body>
+      </html>
+      
