@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRUEBA PAGO | Benja Paneles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ff88; --bg: #050505; --card: #0f0f0f; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .header-neon { font-family: 'Orbitron', sans-serif; color: var(--neon); font-size: 2.2rem; text-shadow: 0 0 20px var(--neon); margin: 20px 0 5px; text-transform: uppercase; }
+        .sub-neon { color: #555; letter-spacing: 3px; font-size: 11px; margin-bottom: 30px; font-weight: bold; }
+        .grid { display: grid; gap: 20px; max-width: 400px; margin: auto; }
+        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 25px; }
+        .card i { font-size: 45px; margin-bottom: 15px; display: block; }
+        .price { font-size: 32px; font-weight: 900; color: var(--neon); margin: 10px 0; }
+        .btn-comprar { background: var(--neon); color: black; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; width: 100%; font-size: 14px; text-transform: uppercase; }
+        
+        /* FIX PARA EL DESPLAZAMIENTO */
+        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; align-items: center; justify-content: center; padding: 10px; backdrop-filter: blur(15px); }
+        .modal-box { 
+            background: #111; 
+            border-radius: 25px; 
+            padding: 20px; 
+            border: 1px solid #333; 
+            width: 100%; 
+            max-width: 380px; 
+            max-height: 90vh; /* No permite que sea más alto que la pantalla */
+            overflow-y: auto; /* ESTO PERMITE BAJAR PARA VER EL BOTÓN DE CONFIRMAR */
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        #notification-box { position: fixed; bottom: 20px; left: 20px; z-index: 3000; pointer-events: none; }
+        .notif { background: rgba(20,20,20,0.9); border: 1px solid var(--neon); padding: 12px 20px; border-radius: 15px; margin-top: 10px; font-size: 13px; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { transform: translateX(-120%); } to { transform: translateX(0); } }
+          </style>
+          
