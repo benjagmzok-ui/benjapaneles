@@ -11,4 +11,82 @@
         .sub { color:#555; font-size:10px; letter-spacing:2px; margin-bottom:25px; }
         .btn-refs { background:none; border:2px solid #00ff88; color:#00ff88; padding:12px 25px; border-radius:15px; font-weight:bold; cursor:pointer; margin-bottom:25px; width:95%; max-width:350px; text-transform:uppercase; font-size:14px; }
         .live { border:1px solid #00ff88; padding:8px 20px; border-radius:50px; color:#00ff88; font-size:12px; margin-bottom:30px; }
-        .card { background:#111; border-radius:25px; padding:25px; width:95%; max-width:350px; text-align:center; border:1px solid #222; margin-bottom:20px;
+        .card { background:#111; border-radius:25px; padding:25px; width:95%; max-width:350px; text-align:center; border:1px solid #222; margin-bottom:20px; }
+        .price { color:#00ff88; font-size:35px; font-weight:bold; margin:15px 0; }
+        .btn { background:#00ff88; color:#000; border:none; width:100%; padding:18px; border-radius:15px; font-weight:bold; font-size:16px; cursor:pointer; text-decoration:none; display:block; text-transform:uppercase; }
+        .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.98); overflow-y:auto; }
+        .m-content { background:#0a0a0a; margin:10% auto; padding:25px; border:1px solid #00ff88; width:85%; max-width:320px; border-radius:35px; text-align:center; }
+        .pago-box { background:#151515; padding:20px; border-radius:22px; text-align:left; margin-bottom:20px; border: 1px solid #222; }
+        .pago-box label { color:#666; font-size:10px; font-weight:bold; text-transform:uppercase; display:block; margin-bottom:4px; }
+        .pago-box div { color:#fff; font-weight:bold; font-size:17px; margin-bottom:12px; }
+        .input-user { background:#222; border:1px solid #444; color:#fff; width:100%; padding:15px; border-radius:12px; margin-bottom:20px; box-sizing:border-box; font-size:14px; text-align:center; outline:none; }
+        #refImg { width:100%; border-radius:15px; margin-top:15px; border:1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="logo-top">BENJA PANELES</div>
+    <div class="sub">SISTEMA DE PAGOS SEGURO 2026</div>
+
+    <button class="btn-refs" onclick="verRefs()"><i class="fas fa-images"></i> VER REFERENCIAS</button>
+
+    <div class="live">● 18 PEDIDOS PROCESADOS HOY</div>
+
+    <div class="card">
+        <i class="fab fa-instagram" style="color:#E1306C; font-size:50px;"></i>
+        <div style="color:#888; font-weight:bold; margin-top:10px;">10.000 SEGUIDORES INSTAGRAM</div>
+        <div class="price">$20.000 ARS</div>
+        <button class="btn" onclick="abrir('10k Instagram', '20.000')">COMPRAR AHORA</button>
+    </div>
+
+    <div class="card">
+        <i class="fab fa-tiktok" style="color:#fff; font-size:50px;"></i>
+        <div style="color:#888; font-weight:bold; margin-top:10px;">25.000 SEGUIDORES TIKTOK</div>
+        <div class="price">$30.000 ARS</div>
+        <button class="btn" onclick="abrir('25k TikTok', '30.000')">COMPRAR AHORA</button>
+    </div>
+
+    <div id="mRefs" class="modal">
+        <div class="m-content">
+            <h2 style="color:#00ff88; font-size: 18px;">REFERENCIAS</h2>
+            <p style="color:#888; font-size:12px;">Comprobantes reales</p>
+            <img id="refImg" src="https://raw.githubusercontent.com/benjagmzok-ui/benjapaneles/main/1000011361.jpg" alt="Refs">
+            <div onclick="cerrarRefs()" style="color:#ff4444; cursor:pointer; margin-top:20px; font-weight:bold;">CERRAR</div>
+        </div>
+    </div>
+
+    <div id="m" class="modal">
+        <div class="m-content">
+            <h2 style="color:#00ff88; font-size: 18px; margin-bottom: 20px;">INFORMACIÓN DE PAGO</h2>
+            <div class="pago-box">
+                <label>TITULAR</label>
+                <div>Benjamin Gomez</div>
+                <label>ALIAS</label>
+                <div style="color:#00ff88;">dupe.benja2026</div>
+                <label>MONTO</label>
+                <div id="monto" style="color:#00ff88; font-size:22px;">$0 ARS</div>
+            </div>
+            <input type="text" id="userInput" class="input-user" placeholder="@tu_usuario">
+            <button class="btn" onclick="enviar()">ENVIAR COMPROBANTE</button>
+            <div onclick="cerrar()" style="color:#ff4444; cursor:pointer; margin-top:20px; font-weight:bold;">CANCELAR</div>
+        </div>
+    </div>
+
+    <script>
+        let s="", c="";
+        function verRefs() { document.getElementById('mRefs').style.display = "block"; }
+        function cerrarRefs() { document.getElementById('mRefs').style.display = "none"; }
+        function abrir(serv, costo) {
+            s=serv; c=costo;
+            document.getElementById('monto').innerText = '$' + costo + ' ARS';
+            document.getElementById('m').style.display = "block";
+        }
+        function cerrar() { document.getElementById('m').style.display = "none"; }
+        function enviar() {
+            let u = document.getElementById('userInput').value;
+            if(!u) return alert("Poné tu usuario");
+            let msg = "Hola Benja! Soy " + u + ". Ya transferí los $" + c + " por " + s + ".";
+            window.location.href = "https://wa.me/543364546172?text=" + encodeURIComponent(msg);
+        }
+    </script>
+</body>
+</html>
